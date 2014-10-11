@@ -28,6 +28,7 @@ las funciones retornaran la funcion output de la clase View, dicha funcion recib
 			"folder.folder.file"
 			
 para el archivo
+			
 			mvc/view/folder/folder/file.php
 			
 			
