@@ -15,4 +15,32 @@ para las rutas que reciban datos via get, usaran los corchetes( {} ) para determ
 			
 			Route::new("/hola/{saludo}", "HolaController@hola");
 
-CONTROLLERS:    los Controllers se crearan en la carpeta mvc/controllers
+CONTROLLERS:    
+los Controllers se crearan en la carpeta mvc/controllers, el nombre del archivo y la clase deben sesr los mismos. las funciones deben ser publicas y aquellas que reciban parametros se definira en la funcion una unica variable que sera un arreglo asosiativo donde las llaves de este arreglo seran los escritos en la ruta entre corchetes.
+			
+			
+			array([saludo] => "mundo")
+			
+			
+las funciones retornaran la funcion output de la clase View, dicha funcion recibira 2 parametros, el primero sera un string con el nombre del archivo php que contiene la plantilla partiendo desde la carpeta mvc/view/, si dicho arcivo se encuentra dentro de una carpeta se separara el nombre del archivo y la carpeta por un punto.
+			
+			
+			"folder.folder.file"
+			
+para el archivo
+			mvc/view/folder/folder/file.php
+			
+			
+el segundo parametro que recibe la funcion es opcional y son los datos que seran usados en la plantilla, sera un arreglo asociativo con los siguientes datos: 
+	- [name]  : sera el nombre de la variable que se usara dentro de la plantilla.
+	- [value] : seran los valores usados.
+	
+			
+			array( "name" => 'data', "value" => $argv['mensaje'] )
+
+View:
+las vistas se crearan en la carpeta mvc/views, las plantillas se crearan con extencion .php. se podra usar la varialbe declarada en el controlador.
+			
+			
+			<?php var_dump($data) ?>
+			string(5) "mundo"
