@@ -25,7 +25,7 @@ class View
 	public static function template_exist($view)
 	{
 		$view = str_replace(".", "/", $view);
-		$view = "mvc/view/" . $view . '.php';
+		$view = "mvc/views/" . $view . '.php';
         if (!file_exists($view)) 
             return False;
         else

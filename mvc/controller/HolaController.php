@@ -25,7 +25,8 @@
 		public function hola($argv)
 		{
 			//return "<br>hola, " . $argv['value'] . " <br>";
-			return View::output("hola.mundo", array( "name" => 'data', "value" => $argv['value'] ));
+			$params = array( "name" => 'data', "value" => $argv['value'] );
+			return View::output("hola.mundo", $params );
 		}
 
 		
