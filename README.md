@@ -40,6 +40,7 @@ el segundo parametro que recibe la funcion es opcional y son los datos que seran
 			array( "name" => 'data', "value" => $argv['mensaje'] )
 
 View:
+
 las vistas se crearan en la carpeta mvc/views, las plantillas se crearan con extencion .php. se podra usar la varialbe declarada en el controlador.
 			
 			
