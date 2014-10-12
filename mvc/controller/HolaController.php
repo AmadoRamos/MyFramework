@@ -19,7 +19,12 @@
 		*/
 		public function index()
 		{
-			return View::output("hola.index");
+			$u = new User;
+			$v = $u->all();
+			//$v = $u->all();
+
+			$params = array( "name" => 'data', "value" => $v );
+			return View::output("hola.index", $params);
 		}
 
 		public function hola($argv)

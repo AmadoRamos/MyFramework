@@ -14,7 +14,8 @@ class View
 		else
 		{
 			ob_start();
-			$$argments['name'] = $argments['value'];
+			if(!empty($argments))
+				$$argments['name'] = $argments['value'];
 	        include($template);
 	        $content = ob_get_contents();
 	        ob_end_clean();
