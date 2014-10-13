@@ -20,7 +20,9 @@
 		public function index()
 		{
 			$u = new User;
-			$v = $u->all();
+			$v = $u->where("id",'>',"0")->order_by('id', 'DESC')->get();
+
+			//$v = User::all();
 			//$v = $u->all();
 
 			$params = array( "name" => 'data', "value" => $v );

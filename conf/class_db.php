@@ -11,7 +11,8 @@ class DB
     function __construct(){
 		
 	}
-    public function connect($host=HOST, $username=USERNAME, $password=PASSWORD,$database_name=DATABASE )
+
+    static function connect($host=HOST, $username=USERNAME, $password=PASSWORD,$database_name=DATABASE )
 	{
 		$enlace = mysqli_connect($host,$username , $password , $database_name);
 		if (mysqli_connect_errno()) {
@@ -35,21 +36,11 @@ class DB
 	static function getInstance ()
     {
         if (self::$_instance === null) {
-            self::$_instance = new self;
+            self::$_instance = new Model;
         }
-
         return self::$_instance;
     }
 
-    public function get()
-	{
 
-		$result = mysql_query(self::$sql . self::$sql_order );
-		while ( $object =  mysql_fetch_object($result)) {
-			$r[] = $object;
-		}
-		return $r;
-		//return self::$sql;
-	}
 }
 ?>

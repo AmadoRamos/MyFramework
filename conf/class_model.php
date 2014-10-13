@@ -4,8 +4,9 @@
 /**
 * 
 */
-class Model extends DB
+ class Model extends DB
 {
+
 
 	
 	function __construct(){
@@ -14,11 +15,11 @@ class Model extends DB
 
 	public function all()
 	{
-		self::$sql 	 = sprintf("SELECT * FROM '%s'", $this->table );
+		self::$sql 	 = sprintf("SELECT * FROM %s", $this->table );
 		//$sql 		.= $this->order_by($order_by);
 		
 		var_dump(self::$sql);
-		$r 			 = mysqli_query( $this->connect() ,self::$sql);
+		$r 			 = mysqli_query( self::connect() ,self::$sql);
 		if( $r ){
 			$results	 = array();
 			while ( $object = mysqli_fetch_object($r) ) {
@@ -42,8 +43,8 @@ class Model extends DB
 			get_object_vars 
 		*/
 		self::$sql 	 = sprintf("SELECT * FROM %s WHERE id = %d",$this->table,$id );		
-		$result  = mysql_query(self::$sql);
-		return mysql_fetch_object($result);
+		$result  = mysqli_query( $this->connect() ,self::$sql);
+		return mysqli_fetch_object($result);
 	}
 
 	
@@ -57,7 +58,7 @@ class Model extends DB
 					)
 			get_object_vars 
 		*/
-		self::$sql 	 = sprintf("SELECT * FROM %s WHERE %s %s %s", $this->table ,$field,$symbol,$value );				
+		self::$sql 	 = sprintf("SELECT * FROM %s WHERE %s %s '%s'", $this->table ,$field,$symbol,$value );				
 		//$sql 	.= $this->order_by();
 		//$result  = mysql_query($sql);
 		//return mysql_fetch_object($result);
@@ -65,12 +66,31 @@ class Model extends DB
 		return self::getInstance();
 	}
 
-	private function order_by($field, $order)
+	public function order_by($field, $order = "ASC")
 	{
-		if( !isset(self::$sql_order) )
+		if( $order != "ASC" and $order != "DESC")
+			$order = "ASC";
+		if( !self::$sql_order )
 			self::$sql_order = " ORDER BY ";
-		$this->sql_order .= sprintf(" %s %s", $order_by['field'], $order_by['order'] );
+		else
+			self::$sql_order .= ", ";
+
+		self::$sql_order .= sprintf(" %s %s", $field, $order );
 		return self::getInstance();;
+	}
+
+    public function get()
+	{
+		$r 		= array();
+		$sql 	= self::$sql . self::$sql_order;
+		$result = mysqli_query($this->connect() , $sql );
+		echo self::$sql . self::$sql_order;
+		//var_dump($result);
+		while ( $object =  mysqli_fetch_object($result)) {
+			$r[] = $object;
+		}
+		return $r;
+		//return self::$sql;
 	}
 	
 	/*
