@@ -18,11 +18,12 @@
 		self::$sql 	 = sprintf("SELECT * FROM %s", $this->table );
 		//$sql 		.= $this->order_by($order_by);
 		
-		var_dump(self::$sql);
-		$r 			 = mysqli_query( self::connect() ,self::$sql);
+		//var_dump(self::$sql);
+		//$r 			 = mysqli_query( self::connect() ,self::$sql);
+		$r = DB::query(self::$sql);
 		if( $r ){
 			$results	 = array();
-			while ( $object = mysqli_fetch_object($r) ) {
+			while ( $object = mysql_fetch_object($r) ) {
 				$results[] = $object;
 			}
 			return $results;
@@ -43,12 +44,13 @@
 			get_object_vars 
 		*/
 		self::$sql 	 = sprintf("SELECT * FROM %s WHERE id = %d",$this->table,$id );		
-		$result  = mysqli_query( $this->connect() ,self::$sql);
-		return mysqli_fetch_object($result);
+		//$result  = mysqli_query( $this->connect() ,self::$sql);
+		$result = DB::query(self::$sql);
+		return mysql_fetch_object($result);
 	}
 
 	
-	public function where($field, $symbol,  $value, $order_by = array())
+	public function findWhere($field, $symbol,  $value, $order_by = array())
 	{
 		/*
 			order_by : 
@@ -59,14 +61,11 @@
 			get_object_vars 
 		*/
 		self::$sql 	 = sprintf("SELECT * FROM %s WHERE %s %s '%s'", $this->table ,$field,$symbol,$value );				
-		//$sql 	.= $this->order_by();
-		//$result  = mysql_query($sql);
-		//return mysql_fetch_object($result);
 
 		return self::getInstance();
 	}
 
-	public function order_by($field, $order = "ASC")
+	public function orderBy($field, $order = "ASC")
 	{
 		if( $order != "ASC" and $order != "DESC")
 			$order = "ASC";
@@ -83,40 +82,43 @@
 	{
 		$r 		= array();
 		$sql 	= self::$sql . self::$sql_order;
-		$result = mysqli_query($this->connect() , $sql );
-		echo self::$sql . self::$sql_order;
+		//$result = mysqli_query($this->connect() , $sql );
+		$result = DB::query(self::$sql);
+
 		//var_dump($result);
-		while ( $object =  mysqli_fetch_object($result)) {
+		while ( $object =  mysql_fetch_object($result)) {
 			$r[] = $object;
 		}
 		return $r;
-		//return self::$sql;
 	}
-	
-	/*
-	private function sql_order($order_by = array())
+
+	public function save()
 	{
-		$sql_order = "";
-		if( !empty($order_by) )
-		{
-			$sql_order = " ORDER BY ";
-			if( !array_key_exists( 0, $order_by) )
+		$vars = get_object_vars($this);
+		unset($vars['table']);
+		self::$sql 	= sprintf("INSERT INTO %s", $this->table);
+		$fields 	= "(";
+		$v 			= " VALUES(";
+		$c 			= 1;
+		foreach ($vars as $key => $value) {
+			$fields .= sprintf("%s",  $key); //`id`, `username`, `password`) 
+			$v 		.= sprintf("'%s'", mysql_escape_string($value) );  //([value-1],[value-2],[value-3])
+			if( $c != sizeof($vars) )
 			{
-				$sql_order .= sprintf(" %s %s", $order_by['field'], $order_by['order'] );
+				$fields .= ",";
+				$v 		.= ",";
+			} else {
+				$fields .= ")";
+				$v 		.= ")";
 			}
-			else 
-			{
-				foreach ($order_by as $key => $value) 
-				{
-					$sql_order .= sprintf(" %s %s", $order_by['field'], $order_by['order'] );
-					if( sizeof($order_by) != $key )
-						$sql_order .= ",";
-				}
-			}
+			$c++;
 		}
 
-		return $sql_order;
+		self::$sql .= $fields . $v;
+		$result = DB::query(self::$sql);
+		$this->id = mysql_insert_id();
+		return $result;
+
 	}
-	*/
 }
 ?>

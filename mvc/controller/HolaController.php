@@ -20,12 +20,15 @@
 		public function index()
 		{
 			$u = new User;
-			$v = $u->where("id",'>',"0")->order_by('id', 'DESC')->get();
+			$u->username = "ander2";
+			$u->password = "ander2";
+			$result = $u->save();
+			//$v = $u->where("id",'>',"0")->order_by('id', 'DESC')->get();
 
 			//$v = User::all();
 			//$v = $u->all();
 
-			$params = array( "name" => 'data', "value" => $v );
+			$params = array( "name" => 'data', "value" => $u );
 			return View::output("hola.index", $params);
 		}
 
