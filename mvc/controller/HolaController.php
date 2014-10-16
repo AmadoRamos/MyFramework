@@ -16,20 +16,24 @@
 
 			$array["mensaje"]
 
+			SOLO ENVIAR COMO PARAMETRO A LAS VISTAS ARRAYs
+
 		*/
 		public function index()
 		{
-			$u = new User;
-			$u->username = "ander2";
-			$u->password = "ander2";
-			$result = $u->save();
+			//$u = new User;
+			//$u->username = "ander2";
+			//$u->password = "ander2";
+			//$result = $u->save();
 			//$v = $u->where("id",'>',"0")->order_by('id', 'DESC')->get();
 
 			//$v = User::all();
 			//$v = $u->all();
+			$v['mensaje'] 	= "...hola mundo...";
+			$v['titulo'] 	= "...titulo...";
 
-			$params = array( "name" => 'data', "value" => $u );
-			return View::output("hola.index", $params);
+			$params = array( "name" => 'data', "value" => $v );
+			return View::output("index", $params);
 		}
 
 		public function hola($argv)

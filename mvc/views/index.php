@@ -3,6 +3,7 @@
 	<title>index</title>
 </head>
 <body>
-	<h1>index</h1>
+	<h1>index {{ data.titulo }}</h1>
+	<p>{{ data.mensaje }} </p>
 </body>
 </html>

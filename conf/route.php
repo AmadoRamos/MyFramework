@@ -1,15 +1,15 @@
 <?php
-	$data  			= Route::get_route();
-	if( $data != "404" ){
-		$class 			=  new $data['controller'];
+	/*
+		URLs
 
-		if( $data['has_arguments'] )
-			$output =  $class->{ $data['function'] }( $data['arguments'] );
-		else
-			$output =$class->{ $data['function'] }();
-	} else {
-		$output =ErrorsController::_404();
-	}
-	echo $output;
+		para recibir datos por get 
+		usaran los corchetes( {} ) para determinar
+		el nombre con el cual vamos a trabajar 
+		y el que se va a recibir de parametro en la funcion del contructor
+	*/
+
 	
+	Route::new_route("/hola/{value}", "HolaController@hola");
+	//Route::new_route("/{value}", "HolaController@index_2");
+	Route::new_route("/", "HolaController@index");
 ?>

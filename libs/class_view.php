@@ -13,12 +13,16 @@ class View
 		}
 		else
 		{
-			ob_start();
+			/*
 			if(!empty($argments))
 				$$argments['name'] = $argments['value'];
+			*/
+			ob_start();
 	        include($template);
 	        $content = ob_get_contents();
 	        ob_end_clean();
+			$content = Vars::get($content, $argments);
+			//var_dump($vars);
 	        return $content; 
 		}
 	}

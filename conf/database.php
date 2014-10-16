@@ -1,7 +1,9 @@
-<?php
-	define("HOST", $database['host']);
-	define("USERNAME", $database['username']);
-	define("PASSWORD", $database['password']);
-	define('DATABASE', $database['database_name']);
-			
+<?php 
+	$database = 
+	array( 
+		"host" => "localhost", 
+		"username" => "root",
+		"password" => "",
+		"database_name" => "mvc_database" 
+		)
 ?>

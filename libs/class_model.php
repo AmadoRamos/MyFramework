@@ -23,7 +23,7 @@
 		$r = DB::query(self::$sql);
 		if( $r ){
 			$results	 = array();
-			while ( $object = mysql_fetch_object($r) ) {
+			while ( $object = mysql_fetch_array($r) ) {
 				$results[] = $object;
 			}
 			return $results;
@@ -46,7 +46,7 @@
 		self::$sql 	 = sprintf("SELECT * FROM %s WHERE id = %d",$this->table,$id );		
 		//$result  = mysqli_query( $this->connect() ,self::$sql);
 		$result = DB::query(self::$sql);
-		return mysql_fetch_object($result);
+		return mysql_fetch_array($result);
 	}
 
 	
@@ -86,7 +86,7 @@
 		$result = DB::query(self::$sql);
 
 		//var_dump($result);
-		while ( $object =  mysql_fetch_object($result)) {
+		while ( $object =  mysql_fetch_array($result)) {
 			$r[] = $object;
 		}
 		return $r;
