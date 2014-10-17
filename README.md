@@ -44,5 +44,5 @@ View:
 las vistas se crearan en la carpeta mvc/views, las plantillas se crearan con extencion .php. se podra usar la varialbe declarada en el controlador.
 			
 			
-			<?php var_dump($data) ?>
-			string(5) "mundo"
+			{{ data }}
+			mundo
