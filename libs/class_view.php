@@ -21,7 +21,8 @@ class View
 	        include($template);
 	        $content = ob_get_contents();
 	        ob_end_clean();
-			$content = Vars::get($content, $argments);
+			$content = Template::__layout__($content);
+			$content = Template::__replace_vars__($content, $argments);
 			//var_dump($vars);
 	        return $content; 
 		}

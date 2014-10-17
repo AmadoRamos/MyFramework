@@ -29,8 +29,8 @@
 
 			//$v = User::all();
 			//$v = $u->all();
-			$v['mensaje'] 	= "...hola mundo...";
-			$v['titulo'] 	= "...titulo...";
+			$v['titulo'] 	= "...hola mundo...";
+			$v['mensaje'] 	= "...mensaje...";
 
 			$params = array( "name" => 'data', "value" => $v );
 			return View::output("index", $params);

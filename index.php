@@ -3,7 +3,7 @@
 require_once("conf/database.php");
 require_once("libs/database.php");
 require_once("libs/require_once_dir.php");
-require_once("libs/class_vars.php");
+require_once("libs/class_template.php");
 require_once("libs/class_db.php");
 require_once("libs/class_model.php");
 require_once("libs/class_route.php");

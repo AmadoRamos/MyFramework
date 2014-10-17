@@ -1,9 +1,9 @@
-<html>
-<head>
-	<title>index</title>
-</head>
-<body>
-	<h1>index {{ data.titulo }}</h1>
+{% extends layout.base %}
+{% block content %}
+	<h2>{{ data.titulo }}</h2>
 	<p>{{ data.mensaje }} </p>
-</body>
-</html>
+{% endblock %}
+
+{% block footer %}
+	<footer>Footer</footer>
+{%endblock%}
