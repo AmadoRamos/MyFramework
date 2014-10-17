@@ -43,7 +43,13 @@ class Template
                             //var_dump($extend_content);
                             if( $yield_name[0] == 'yield' )
                             {
-                                $extend_content = str_replace("{%". $yield_between ."%}", $blocks[ $yield_name[1] ], $extend_content);
+                                if( !empty($blocks[ $yield_name[1] ]) )
+                                    $extend_content = str_replace("{%". $yield_between ."%}", $blocks[ $yield_name[1] ], $extend_content);
+                                else {
+                                    return sprintf("no existe bloque con nombre '%s'", $yield_name[1] );
+                                    
+                                }
+
                             }
                         }
                         $output = $extend_content;
@@ -63,10 +69,15 @@ class Template
         for ($i=0; $i < $count; $i++) 
         { 
             list( $block_name, $between ) = self::block_name($output);
-            echo "$between <br>";
+            //print_r($block_name);
+            //echo "<br>";
             if( $block_name[0] == 'block' )
             {
-                $blocks[ $block_name[1] ] = (self::between_2( "{%" . $between . "%}", "{%endblock%}", $output ) == "") ? self::between_2( "{%" . $between . "%}", "{% endblock %}", $output ) : self::between_2( "{%" . $between . "%}", "{%endblock%}", $output ) ;
+                //echo self::between_2( "{%" . $between . "%}", "{% endblock %}", $output );
+                //echo self::between( "{%" . $between . "%}", "{% endblock ". $block_name[1] ." %}", $output );
+                //echo "<br>";
+                //$blocks[ $block_name[1] ] = (self::between( "{%" . $between . "%}", "{% endblock ". $block_name[1] ." %}", $output ) == "") ? self::between_2( "{%" . $between . "%}", "{% endblock %}", $output ) : self::between_2( "{%" . $between . "%}", "{%endblock%}", $output ) ;
+                $blocks[ $block_name[1] ] = self::between( "{%" . $between . "%}", "{% endblock ". $block_name[1] ." %}", $output);
                 //print_r( $blocks[ $block_name[1]]);
             }
             $output  = str_replace("{%". $between  ."%}",  " " , $output);
