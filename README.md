@@ -65,5 +65,7 @@ en la plantilla hija se usara la funcion block para definir cual contenido se va
 			
 			
 			{% block content %}
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti sequi, quos, aperiam illo 					voluptatum consequatur nam maiores optio repudiandae harum consequuntur. Tempore molestias, 					deleniti. At fugit, quasi. Ducimus, autem, minus.
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti sequi, quos, aperiam illo
+				voluptatum consequatur nam maiores optio repudiandae harum consequuntur. Tempore molestias,
+				deleniti. At fugit, quasi. Ducimus, autem, minus.
 			{% endblock content %}
