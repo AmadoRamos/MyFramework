@@ -46,3 +46,24 @@ las vistas se crearan en la carpeta mvc/views, las plantillas se crearan con ext
 			
 			{{ data }}
 			mundo
+			
+
+la vista se podra extender una vez usando la funcion extend, se llamara el archivos comenzando desde mvc/views.
+			
+			
+			{% extends folder.folder.file %}
+		
+			
+
+se crearan bloques de datos para incluirlos desde la plantilla hija a la plantilla padre, se definira el bloque en la plantilla padre con la funcion yield, ademas del nombre del bloque.
+			
+			
+			{% yield content %}
+			
+			
+en la plantilla hija se usara la funcion block para definir cual contenido se va a usar.
+			
+			
+			{% block content %}
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti sequi, quos, aperiam illo 					voluptatum consequatur nam maiores optio repudiandae harum consequuntur. Tempore molestias, 					deleniti. At fugit, quasi. Ducimus, autem, minus.
+			{% endblock content %}
