@@ -22,6 +22,48 @@ class Route
 		self::$path = array_values($path);
    	}
 
+   	public static function a($controller, $arguments = array())
+   	{
+   		$routes = self::$routes;
+   		$a      = "";
+   		foreach ($routes as $key => $value) 
+   		{
+   			if( $controller == $value )
+   			{
+   				$k = explode("/", $key);
+				//unset($path[0]);
+				foreach ($k as $k_key => $k_value) {
+					if( $k_value == "" or $k_value == null )
+						unset($k[$k_key]);
+				}
+				$k = array_values($k);
+   				if( !self::has_arguments($k) )
+   				{
+	   				if (empty($arguments)) 
+	   				{
+						$a = $key;
+	   				}
+   				}
+   				else 
+   				{
+   					if (empty($arguments)) 
+	   				{
+	   					return "ERROR: la ruta necesita argumentos";
+	   				}
+	   				else
+	   				{
+	   					$a = $key;
+	   					foreach ($arguments as $a_key => $a_value) 
+	   					{
+	   						$a = str_replace("{".$a_key."}", $a_value, $a);
+	   					}
+	   				}
+   				}
+   			}
+   		}
+   		return $a;
+   	}
+
 	public function get_route()
 	{
 		self::path();

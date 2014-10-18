@@ -39,10 +39,16 @@
 		public function hola($argv)
 		{
 			//return "<br>hola, " . $argv['value'] . " <br>";
-			$params = array( "name" => 'data', "value" => $argv['value'] );
-			return View::output("hola.mundo", $params );
+			$params = array( "name" => 'data', "value" => $argv['mensaje'] );
+			return View::output("hola.index", $params );
 		}
 
+		public function hola2($argv)
+		{
+			//return "<br>hola, " . $argv['value'] . " <br>";
+			$params = array( "name" => 'data', "value" => $argv );
+			return View::output("hola.mundo", $params );
+		}
 		
 
 		

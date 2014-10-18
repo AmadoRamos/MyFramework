@@ -107,27 +107,51 @@ class Template
         { 
             $between        = self::between("{{","}}", $output);
             $var_name       = self::clear( $between );
-            $var_name       = self::separate($var_name, ".");
-            $replace        = $$var_name[0];
-            if( count($var_name) > 0 )
+            $func           = self::separate($var_name, "::");
+            if( count($func) > 1 )
             {
-                if( is_array( $replace ) )
-                {
-                    for ($j=1; $j < count($var_name) ; $j++) 
-                    { 
-                        if (isset($replace[ $var_name[$j] ]) and !empty($replace[$var_name[$j]])) 
-                        {  
-                            $replace = $replace[ $var_name[$j] ];
-                        }
-                        else
-                        {
-                            echo  sprintf("<h1> '%s'  variable no definida.</h1>", $var_name[$j]) ;
-                            exit;
-                        }
-                    }
-                } 
+                $class  = $func[0];
+                $f      = Template::before("(", $func[1]);
+                $arg    = Template::between("(", ")", $func[1]);
+                $arg    = str_replace("\"", "", $arg);
+                $arg    = str_replace("'", "", $arg);
+                $arg    = str_replace("array(", "", $arg);
+                $temp   = explode(",", $arg);
+                $arg1   = $temp[0];
+                $arg2   = array();
+
+                for ($j=1; $j < count($temp); $j++) 
+                { 
+                    $a_temp             = explode("=>", $temp[$j]);
+                    $arg2[$a_temp[0] ]  =  $a_temp[1];
+                }
+                $output   = str_replace("{{". $between  ."}}", $class::{$f}($arg1, $arg2) , $output);
+
             }
-            @$output   = str_replace("{{". $between  ."}}",  sprintf("%s",htmlspecialchars($replace) ) , $output);
+            else
+            {
+                $var_name       = self::separate($var_name, ".");
+                $replace        = $$var_name[0];
+                if( count($var_name) > 0 )
+                {
+                    if( is_array( $replace ) )
+                    {
+                        for ($j=1; $j < count($var_name) ; $j++) 
+                        { 
+                            if (isset($replace[ $var_name[$j] ]) and !empty($replace[$var_name[$j]])) 
+                            {  
+                                $replace = $replace[ $var_name[$j] ];
+                            }
+                            else
+                            {
+                                echo  sprintf("<h1> '%s'  variable no definida.</h1>", $var_name[$j]) ;
+                                exit;
+                            }
+                        }
+                    } 
+                }
+                @$output   = str_replace("{{". $between  ."}}",  sprintf("%s",htmlspecialchars($replace) ) , $output);
+            }
 
         }
         return $output;
