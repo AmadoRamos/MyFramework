@@ -1,7 +1,16 @@
 <?php
 
 /**
-* 
+* 	funcion action: 
+* 		paramatros: 
+*   		controller y la funcion a la cual la ruta esta destinada
+*   				Controlador@funcion
+*			[opcional]
+*			arreglo asociativo de los argumentos de la ruta, si esta los necesita.
+* 			las keys del arreglo seran los nombres dados cuando se definio la ruta.
+*		retorna
+* 			la rua url definida para el controlador, con sus parametros, si fueron definidos
+*   
 */
 class Route
 {
@@ -22,7 +31,14 @@ class Route
 		self::$path = array_values($path);
    	}
 
-   	public static function a($controller, $arguments = array())
+   	public static function assets($asset)
+   	{
+   		$server = $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'];
+   		$dir    = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);
+   		return  $server . $dir  .  $asset;
+   	}
+
+   	public static function action($controller, $arguments = array())
    	{
    		$routes = self::$routes;
    		$a      = "";
