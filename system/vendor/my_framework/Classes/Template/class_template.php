@@ -110,6 +110,7 @@ class Template
             $func           = self::separate($var_name, "::");
             if( count($func) > 1 )
             {
+                /*
                 $class  = $func[0];
                 $f      = Template::before("(", $func[1]);
                 $arg    = Template::between("(", ")", $func[1]);
@@ -124,8 +125,9 @@ class Template
                 { 
                     $a_temp             = explode("=>", $temp[$j]);
                     $arg2[$a_temp[0] ]  =  $a_temp[1];
-                }
-                $output   = str_replace("{{". $between  ."}}", $class::{$f}($arg1, $arg2) , $output);
+                }*/
+                $f = create_function(null,"return $var_name;");
+                $output   = str_replace("{{". $between  ."}}", $f() , $output);
 
             }
             else

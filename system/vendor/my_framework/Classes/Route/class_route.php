@@ -31,14 +31,19 @@ class Route
 		self::$path = array_values($path);
    	}
 
-   	public static function assets($asset)
+   	public static function assets($asset, $secured = False)
    	{
    		$server = $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'];
-   		$dir    = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']);
-   		return  $server . $dir  .  $asset;
+   		$dir    = str_replace("index.php", "", $_SERVER['SCRIPT_NAME']) . "assets/public/";
+   		if( !$secured)
+   			$http = "https://";
+   		else
+   			$http = "http://";
+
+   		return  $http . $server . $dir  .  $asset;
    	}
 
-   	public static function action($controller, $arguments = array())
+   	public static function action($controller, $arguments = array(), $secured = False)
    	{
    		$routes = self::$routes;
    		$a      = "";
@@ -77,7 +82,12 @@ class Route
    				}
    			}
    		}
-   		return $a;
+   		if( !$secured)
+   			$http = "http://";
+   		else
+   			$http = "https://";
+   		$server = $http . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME'];
+   		return $server . $a;
    	}
 
 	public function get_route()
